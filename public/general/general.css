@@ -1,0 +1,47 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    letter-spacing: 2px;
+    font-family: "Source Sans 3";
+    color:#FFC145;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #1a161b;
+}
+
+
+.navbar {
+    background-color: #2a262b;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box; 
+    width: 100%;
+    height: 60px;
+}
+
+.navbar i {
+    font-size: 30px;
+    margin: 0 10px;
+}
+
+#PlayersOnline{
+    font-size: 20px;
+}
+
+.izquierda{
+    display: inline-block;
+}
+
+.izquierda img{
+    width: 70%;
+}
+
+.derecha i{
+    cursor: pointer;
+}

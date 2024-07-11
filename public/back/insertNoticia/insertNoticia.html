@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Nueva Noticia</title>
+</head>
+<body>
+    <h1>Agregar Nueva Noticia</h1>
+    <form action="/api/nuevaNoticia" method="POST">
+        <label for="Autor">Autor:</label><br>
+        <input type="text" id="Autor" name="Autor" required><br><br>
+        
+        <label for="Titular">Titular:</label><br>
+        <input type="text" id="Titular" name="Titular" required><br><br>
+        
+        <label for="Descripcion">Descripción:</label><br>
+        <textarea id="Descripcion" name="Descripcion" required></textarea><br><br>
+        
+        <label for="Contenido">Contenido:</label><br>
+        <textarea id="Contenido" name="Contenido" required></textarea><br><br>
+        
+        <label for="foto">URL de la Foto:</label><br>
+        <input type="text" id="foto" name="foto" required><br><br>
+
+        <label for="fecha">Fecha:</label><br>
+        <input type="date" id="fecha" name="fecha" required><br><br>
+        
+        <button type="submit">Agregar Noticia</button>
+    </form>
+</body>
+</html>
