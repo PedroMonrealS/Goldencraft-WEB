@@ -1,4 +1,7 @@
-fetch('http://localhost/api/noticias')
+let datos = [];
+let noticiaActual = 0;
+
+fetch('/api/noticias')
   .then(response => {
     if (!response.ok) {
       throw new Error('Network response was not ok');
@@ -7,67 +10,100 @@ fetch('http://localhost/api/noticias')
   })
   .then(data => {
     console.log(data); 
-    mostrarNoticias(data);
+    datos = data;
+    noticiaInicial();
   })
   .catch(error => {
     console.error('Fetch error:', error);
   });
 
-
-function extenderNoticias(){
+function extenderNoticias() {
     var divNoticias = document.getElementById("divNoticias");
     divNoticias.style.height = "700px";
     var flechaSubir = document.getElementById("flechaNoticiasBajar");
     flechaSubir.style.display = "none";
     var noticiasOculto = document.getElementById("noticiasOculto");
-    noticiasOculto.style.display ="block";
+    noticiasOculto.style.display = "block";
     var NoticiasContenido = document.getElementById("NoticiasContenido");
     setTimeout(function() {
-        noticiasOculto.style.opacity ="100%";
+        noticiasOculto.style.opacity = "100%";
         NoticiasContenido.scrollIntoView({ behavior: 'smooth' });
-
     }, 300);
 }
 
-function colapsarNoticias(){
+function colapsarNoticias() {
     var divNoticias = document.getElementById("divNoticias");
     divNoticias.style.height = "100px";
     var noticiasOculto = document.getElementById("noticiasOculto");
-    noticiasOculto.style.display ="none";
+    noticiasOculto.style.display = "none";
     var flechaBajar = document.getElementById("flechaNoticiasBajar");
     flechaBajar.style.display = "block";
     setTimeout(function() {
-        noticiasOculto.style.opacity ="0%";
+        noticiasOculto.style.opacity = "0%";
     }, 300);
-
-
 }
 
-
-function mostrarNoticias(data){
+function mostrarNoticias(num) {
     var NoticiasContenido = document.getElementById("NoticiasContenido");
-    var datos = document.createElement("div");
-    datos.classList.add("datosNoticia")
+    NoticiasContenido.innerHTML = ""; // Limpiar contenido previo
+    var datosNoticia = document.createElement("div");
+    datosNoticia.classList.add("datosNoticia");
+
     var autor = document.createElement("h1");
-    autor.textContent = data[0].Autor;
-    autor.classList.add("autorNoticia")
+    autor.textContent = datos[num].Autor;
+    autor.classList.add("autorNoticia");
+
     var titular = document.createElement("h1");
-    titular.textContent = data[0].Titular;
+    titular.textContent = datos[num].Titular;
     titular.classList.add("titular");
+
     var contenido = document.createElement("p");
-    contenido.textContent = data[0].Contenido;
-    contenido.classList.add("contenidoNoticia")
+    contenido.textContent = datos[num].Contenido;
+    contenido.classList.add("contenidoNoticia");
+
     var fotoNoticiasDIV = document.createElement("div");
-    fotoNoticiasDIV.classList.add("fotoNoticias")
+    fotoNoticiasDIV.classList.add("fotoNoticias");
+
     var fotoNoticia = document.createElement("img");
-    fotoNoticia.src = data[0].foto;  
+    fotoNoticia.src = datos[num].foto;  
     fotoNoticiasDIV.appendChild(fotoNoticia);
-    datos.appendChild(titular);
-    datos.appendChild(contenido);
-    datos.appendChild(autor);
-    NoticiasContenido.appendChild(datos)
+
+    datosNoticia.appendChild(titular);
+    datosNoticia.appendChild(contenido);
+    datosNoticia.appendChild(autor);
+    NoticiasContenido.appendChild(datosNoticia);
     NoticiasContenido.appendChild(fotoNoticiasDIV);
 
+    noticiaActual = num; // Asignar el número de noticia actual
+    console.log("noticia actual = " + noticiaActual);
+}
 
+function noticiaInicial() {
+  if (datos.length > 0) {
+    mostrarNoticias(0);
+    noticiaActual = 0; // Ajustar noticiaActual
+  }
+}
 
+function siguienteNoticia() {
+  if (noticiaActual < datos.length - 1) {
+    mostrarNoticias(noticiaActual + 1);
+  } else {
+    console.log("No hay más noticias.");
+  }
+  if (noticiaActual === datos.length - 1) {
+    
+    console.log("Estás en la última noticia.");
+  }
+}
+
+function noticiaAnterior() {
+  if (noticiaActual > 0) {
+    mostrarNoticias(noticiaActual - 1);
+  } else {
+    console.log("Ya estás en la primera noticia.");
+  }
+  if (noticiaActual === 0) {
+    console.log("Estás en la primera noticia.");
+  }
 }

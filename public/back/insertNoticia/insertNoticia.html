@@ -3,20 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./back/insertNoticia/insertNoticia.css">
     <title>Agregar Nueva Noticia</title>
 </head>
 <body>
-    <h1>Agregar Nueva Noticia</h1>
+    <h1 class="new">Agregar Nueva Noticia</h1>
+    <div class="formularioNoticias">
     <form action="/api/nuevaNoticia" method="POST">
         <label for="Autor">Autor:</label><br>
         <input type="text" id="Autor" name="Autor" required><br><br>
         
         <label for="Titular">Titular:</label><br>
         <input type="text" id="Titular" name="Titular" required><br><br>
-        
-        <label for="Descripcion">Descripción:</label><br>
-        <textarea id="Descripcion" name="Descripcion" required></textarea><br><br>
-        
+
         <label for="Contenido">Contenido:</label><br>
         <textarea id="Contenido" name="Contenido" required></textarea><br><br>
         
@@ -28,5 +27,7 @@
         
         <button type="submit">Agregar Noticia</button>
     </form>
+</div>
 </body>
+<script src="../../general/general.js"></script>
 </html>
