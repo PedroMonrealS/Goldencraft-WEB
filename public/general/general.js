@@ -99,3 +99,15 @@ function crearNavbar(){
 }
 
 crearNavbar();
+
+
+
+//Añadir favicon
+
+var iconLink = document.createElement('link');
+
+iconLink.rel = 'icon';
+iconLink.type = 'image/jpg';
+iconLink.href = '../../general/media/favicon.ico';
+
+document.head.appendChild(iconLink);
