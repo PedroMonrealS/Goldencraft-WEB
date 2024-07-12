@@ -45,3 +45,16 @@ body {
 .derecha i{
     cursor: pointer;
 }
+
+
+
+@media screen and (max-width: 900px) {
+    .navbar p{
+        font-size: 20px;
+    }
+
+    .navbar i{
+        font-size: 20px;
+    }
+
+  }

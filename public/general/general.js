@@ -1,9 +1,8 @@
-
+// Crear y añadir el enlace al CSS general
 var link = document.createElement('link');
 link.rel = 'stylesheet';
 link.type = 'text/css';
 link.href = '../../general/general.css';
-
 document.head.appendChild(link);
 
 // Cargar Fontawesome
@@ -48,66 +47,74 @@ function numeroJugadores() {
             port: 25565
         }, function (err, status) {
             if (err) {
-                return document.querySelector('.server-status').innerHTML = 'Error cargando el estado';
+                return console.error('Error cargando el estado:', err);
             }
             var PlayersOnline = document.getElementById("PlayersOnline");
-            PlayersOnline.textContent = " Jugadores conectados: " + status.players.now;
+            if (PlayersOnline) {
+                PlayersOnline.textContent = " Online: " + status.players.now;
+            } else {
+                console.error('Elemento PlayersOnline no encontrado en el DOM.');
+            }
         });
     } else {
         console.error('MinecraftAPI no está definido aún.');
     }
 }
 
-
-
-function crearNavbar(){
+// Función para crear la barra de navegación
+function crearNavbar() {
     var navbar = document.createElement("div");
     navbar.classList.add("navbar");
+    
     var izquierda = document.createElement("div");
     izquierda.classList.add("izquierda");
+    
     var fotoLogo = document.createElement("img");
-    fotoLogo.src = "../../general/media/LogoSencillo.png"
+    fotoLogo.src = "../../general/media/LogoSencillo.png";
     fotoLogo.addEventListener("click", function() {
         window.location.href = '/';
     });  
     izquierda.appendChild(fotoLogo);
+    
+    var width = window.innerWidth;
+
     var contadorJugadores = document.createElement("h1");
     contadorJugadores.id = "PlayersOnline";
-    contadorJugadores.classList.add("fa-solid")
-    contadorJugadores.classList.add("fa-plug")
+    contadorJugadores.classList.add("fa-solid");
+    contadorJugadores.classList.add("fa-plug");
 
     var derecha = document.createElement("div");
     derecha.classList.add("derecha");
+    
     var Usuario = document.createElement("i");
     Usuario.textContent = "Usuario";
+    
     var registro = document.createElement("i");
     registro.classList.add("fa-solid");
     registro.classList.add("fa-user");
-
     registro.addEventListener("click", function() {
         window.location.href = '/registro';
     });  
-      
+    
     navbar.appendChild(izquierda);
     navbar.appendChild(contadorJugadores);
     derecha.appendChild(Usuario);
     derecha.appendChild(registro);
     navbar.appendChild(derecha);
+    if (width < 600) {
+        contadorJugadores.style.display = "none";
+        Usuario.style.display = "none";
+
+    }
     document.body.insertBefore(navbar, document.body.firstChild);
-
-
 }
 
+// Llamar a la función para crear la barra de navegación
 crearNavbar();
 
-
-
-//Añadir favicon
-
+// Añadir favicon
 var iconLink = document.createElement('link');
-
 iconLink.rel = 'icon';
-iconLink.type = 'image/jpg';
+iconLink.type = 'image/x-icon';
 iconLink.href = '../../general/media/favicon.ico';
-
 document.head.appendChild(iconLink);

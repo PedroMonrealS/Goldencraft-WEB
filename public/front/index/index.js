@@ -74,14 +74,13 @@ function mostrarNoticias(num) {
     NoticiasContenido.appendChild(datosNoticia);
     NoticiasContenido.appendChild(fotoNoticiasDIV);
 
-    noticiaActual = num; // Asignar el número de noticia actual
-    console.log("noticia actual = " + noticiaActual);
+    noticiaActual = num; 
 }
 
 function noticiaInicial() {
   if (datos.length > 0) {
     mostrarNoticias(0);
-    noticiaActual = 0; // Ajustar noticiaActual
+    noticiaActual = 0;
   }
 }
 
