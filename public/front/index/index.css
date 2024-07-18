@@ -17,10 +17,11 @@ main{
 
 }
 .textoMain{
-    max-width: 60%;
+    max-width: 30%;
+    margin: 20px;
 }
 .textoMain h1{
-    text-align: center;
+    text-align: left;
     font-size: 40px;
     padding: 20px;
 }
@@ -32,15 +33,17 @@ main{
 }
 
 .logoMain {
-    background-color: #ada28a;
     display: flex;
     justify-content: center;
     overflow: hidden;
+    margin: 20px;
 }
 
 .logoMain img {
     object-fit: cover;
-    max-width: 400px;
+    max-width: 450px;
+    filter: drop-shadow(0 2px 10px rgba(255, 171, 15, 0.671));
+
 
 }
 
@@ -60,7 +63,7 @@ main{
 }
 
 
-#flechaNoticiasSubir, #flechaNoticiasBajar {
+#flechaNoticiasSubir {
     font-size: 50px;
     animation: subirBajar 2s infinite;
 }
@@ -68,6 +71,13 @@ main{
 #flechaNoticiasBajar{
 
     cursor: pointer;
+    color:black;
+    font-style: bold;
+    font-size: 20px;
+    padding: 10px;
+    border-style: solid;
+    border-radius: 30px;
+    background-color: #FFC145;
 }
 #flechaNoticiasSubir{
     margin-top: 50px;
