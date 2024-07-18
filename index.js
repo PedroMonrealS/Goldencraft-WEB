@@ -1,18 +1,19 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
+const serveIndex = require('serve-index');
+
 
 const app = express();
 const port = 80;
 
 // Middleware para procesar solicitudes JSON
 app.use(express.json());
-
 app.use(express.urlencoded({ extended: true }));
-
 
 // Middleware para servir archivos estáticos desde el directorio 'public'
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/public', serveIndex(path.join(__dirname, 'public')));
 
 // Conexión a la base de datos en MongoDB Atlas
 const mongoURL = 'mongodb+srv://goldencraftWEB:GoldencraftAdmins%40@goldencraft.uoswo3m.mongodb.net/mydatabase';
@@ -44,5 +45,10 @@ app.get("/registro", (req, res) => {
 
 // Ruta para servir el formulario de agregar noticia
 app.get("/nuevanoticia", (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/back/insertNoticia/insertNoticia.html'));
+    res.sendFile(path.join(__dirname, '/public/back/insertNoticia/insertNoticia.html'));
+});
+
+// Ruta para servir el archivo test.html
+app.get("/test", (req, res) => {
+    res.sendFile(path.join(__dirname, '/public/front/testthree/test.html'));
 });
