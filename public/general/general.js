@@ -43,7 +43,7 @@ document.head.appendChild(fontLink);
 // Función para obtener el número de jugadores conectados
 function numeroJugadores() {
     if (typeof MinecraftAPI !== 'undefined') {
-        MinecraftAPI.getServerStatus('mc.universocraft.net', {
+        MinecraftAPI.getServerStatus('Goldencraftbeta.aternos.me', {
             port: 25565
         }, function (err, status) {
             if (err) {
