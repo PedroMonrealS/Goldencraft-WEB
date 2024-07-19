@@ -74,9 +74,6 @@ main{
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-
-
-    
 }
 
 .fondoPregunta{
@@ -314,5 +311,22 @@ footer h1{
     }
     .noticias i{
         font-size: 20px;
+    }
+
+    .divDatos .nombre{
+        font-size: 20px;
+    
+    }
+    
+    .divDatos .descripcion{
+        font-size: 10px;
+    }
+
+    .cajaOpcion{
+        width: 300px;
+        height: 100px;
+    
+    
+        
     }
   }
