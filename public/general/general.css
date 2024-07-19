@@ -53,18 +53,17 @@ body {
     cursor: pointer;
 }
 
+footer{
+    background-color: #1a161b;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
 
-
-@media screen and (max-width: 900px) {
-    .navbar p{
-        font-size: 20px;
-    }
-
-    .navbar i{
-        font-size: 20px;
-    }
-
-  }
+footer h1{
+    font-family: Helvetica;
+    font-size: 20px;
+    text-align: center;
+}
 
 
   ::-webkit-scrollbar {
@@ -84,4 +83,16 @@ body {
 
   ::-webkit-scrollbar-thumb:hover {
     background: #ffaa00;
+  }
+
+
+  @media screen and (max-width: 900px) {
+    .navbar p{
+        font-size: 20px;
+    }
+
+    .navbar i{
+        font-size: 20px;
+    }
+
   }

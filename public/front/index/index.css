@@ -220,17 +220,7 @@ main{
     word-wrap: break-word;
     overflow-wrap: break-word;
 }
-footer{
-    background-color: #1a161b;
-    margin-top: 50px;
-    margin-bottom: 50px;
-}
 
-footer h1{
-    font-family: Helvetica;
-    font-size: 20px;
-    text-align: center;
-}
   .hoverEntra, .hoverIP {
     position: absolute;
     transition: opacity 0.4s ease;
