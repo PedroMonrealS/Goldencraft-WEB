@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login</title>
+    <link rel="stylesheet" href="/front/AdmUser/login/login.css">
+
+
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Code+Latin:wght@100..700&family=Nanum+Gothic+Coding&display=swap" rel="stylesheet">
+
+
+</head>
+<body>
+<div class="main">
+    <h1 class="titulo">GoldenCraft</h1>
+<div class="formulario">
+    <form action="/login" method="post"> 
+
+        <h1>Login</h1>
+        <div class="botones">
+            <button type="button" class="select">Login</button>
+            <button type="button" onclick="window.location.href='/register'">Register</button>
+
+
+        </div>
+        <input type="email" id="correo" name="correo" placeholder="Correo Electrónico"><br>
+        <input type="password" id="contrasena" name="contrasena" placeholder="Contraseña"><br>
+
+        <input type="submit" id="enviar" class="enviar"><br>
+
+    </form>
+</div>
+    </div>
+</body>
+<script src="../../general/general.js"></script>
+</html>

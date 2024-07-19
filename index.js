@@ -45,8 +45,11 @@ app.get("/443", (req, res) => {
     res.sendFile(path.join(__dirname, 'public/error/443/443.html'));
 });
 
+app.get("/login", (req, res) => {
+    res.sendFile(path.join(__dirname, '/public/front/AdmUser/login/login.html'));
+});
 
-app.get("/registro", (req, res) => {
+app.get("/register", (req, res) => {
     res.sendFile(path.join(__dirname, '/public/front/AdmUser/register/register.html'));
 });
 

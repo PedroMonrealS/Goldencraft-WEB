@@ -93,7 +93,7 @@ function crearNavbar() {
     registro.classList.add("fa-solid");
     registro.classList.add("fa-user");
     registro.addEventListener("click", function() {
-        window.location.href = '/registro';
+        window.location.href = '/login';
     });  
     
     navbar.appendChild(izquierda);
