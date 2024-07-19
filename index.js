@@ -19,7 +19,10 @@ const mongoURL = 'mongodb+srv://goldencraftWEB:GoldencraftAdmins%40@goldencraft.
 
 // Importar las rutas para las noticias
 const rutasNoticias = require('./rutas/noticias.js');
+const rutasPreguntasFrecuentes = require('./rutas/preguntasFrecuentes.js');
+
 app.use('/api', rutasNoticias);
+app.use('/api', rutasPreguntasFrecuentes);
 
 // Conexión a MongoDB y inicio del servidor
 mongoose.connect(mongoURL)
@@ -45,4 +48,8 @@ app.get("/registro", (req, res) => {
 // Ruta para servir el formulario de agregar noticia
 app.get("/nuevanoticia", (req, res) => {
     res.sendFile(path.join(__dirname, 'public/back/insertNoticia/insertNoticia.html'));
+});
+
+app.get("/nuevapreguntafrecuente", (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/back/insertPreguntaFrecuente/insertPreguntaFrecuente.html'));
 });

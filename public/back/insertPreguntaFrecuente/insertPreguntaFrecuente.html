@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./back/insertPreguntaFrecuente/insertPreguntaFrecuente.css">
+    <title>Agregar Nueva Pregunta frecuente</title>
+</head>
+<body>
+    <h1 class="new">Agregar Nueva Pregunta frecuente</h1>
+    <div class="formularioNoticias">
+        <form action="/api/nuevaPreguntaFrecuente" method="POST">
+            <label for="nombre">Nombre:</label><br>
+            <input type="text" id="nombre" name="nombre" required><br><br>
+            
+            <label for="descripcion">Descripción:</label><br>
+            <input type="text" id="descripcion" name="descripcion" required><br><br>
+
+            <label for="fondo">Fondo:</label><br>
+            <input type="text" id="fondo" name="fondo" required><br><br>
+
+            <label for="enlace">Enlace:</label><br>
+            <input type="text" id="enlace" name="enlace" required><br><br>
+
+            <button type="submit">Agregar Pregunta frecuente</button>
+        </form>
+    </div>
+</body>
+<script src="../../general/general.js"></script>
+</html>

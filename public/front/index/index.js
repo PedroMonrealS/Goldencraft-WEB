@@ -1,4 +1,6 @@
 let datos = [];
+let preguntasFrecuentesData = [];
+
 let noticiaActual = 0;
 
 fetch('/api/noticias')
@@ -12,6 +14,23 @@ fetch('/api/noticias')
     console.log(data); 
     datos = data;
     noticiaInicial();
+  })
+  .catch(error => {
+    console.error('Fetch error:', error);
+  });
+
+  //Recibir preguntas
+  fetch('/api/preguntasfrecuentes')
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  })
+  .then(data => {
+    console.log(data); 
+    preguntasFrecuentesData = data;
+    preguntasFrecuentes();
   })
   .catch(error => {
     console.error('Fetch error:', error);
@@ -106,3 +125,58 @@ function noticiaAnterior() {
     console.log("Estás en la primera noticia.");
   }
 }
+
+
+function copiarIP() {
+  var ip = "goldencraft.ddns.net";
+
+  var areaTemporal = document.createElement("textarea");
+  areaTemporal.value = ip;
+
+  document.body.appendChild(areaTemporal);
+
+  areaTemporal.select();
+  areaTemporal.setSelectionRange(0, 99999);
+
+  // Copia el texto al portapapeles
+  document.execCommand("copy");
+
+  // Elimina el área de texto temporal
+  document.body.removeChild(areaTemporal);
+
+  var hoverEntra = document.getElementById("hoverEntra");
+  hoverEntra.style.display = "none";
+  
+  var hoverIP = document.getElementById("hoverIP");
+  hoverIP.style.display = "none";
+
+  var hoverclick = document.getElementById("hoverClick");
+  hoverclick.style.display = "block";
+  
+}
+
+function preguntasFrecuentes() {
+  var preguntasOpciones = document.getElementById("preguntasOpciones");
+
+  for (var pregunta = 0; pregunta < preguntasFrecuentesData.length; pregunta++) {
+    var CajaOpcion = document.createElement("div");
+    CajaOpcion.classList.add("cajaOpcion");
+
+    var nombre = document.createElement("h1");
+    nombre.classList.add("nombre");
+    nombre.textContent = preguntasFrecuentesData[pregunta].nombre;
+
+    var descripcion = document.createElement("h1");
+    descripcion.classList.add("descripcion");
+    descripcion.textContent = preguntasFrecuentesData[pregunta].descripcion;
+    CajaOpcion.style.backgroundImage = "url('" + preguntasFrecuentesData[pregunta].fondo + "')";
+
+    var divDatos = document.createElement("div");
+    divDatos.classList.add("divDatos");
+    divDatos.appendChild(nombre);
+    divDatos.appendChild(descripcion);
+    CajaOpcion.appendChild(divDatos);
+    preguntasOpciones.appendChild(CajaOpcion);
+  }
+}    
+
