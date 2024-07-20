@@ -165,6 +165,13 @@ function preguntasFrecuentes() {
 
   for (var pregunta = 0; pregunta < preguntasFrecuentesData.length; pregunta++) {
     var CajaOpcion = document.createElement("div");
+    
+    let link = preguntasFrecuentesData[pregunta].enlace;
+
+    CajaOpcion.addEventListener('click', function() {
+      window.location.href = link;
+    });
+
     CajaOpcion.classList.add("cajaOpcion");
 
     var nombre = document.createElement("h1");
@@ -174,14 +181,18 @@ function preguntasFrecuentes() {
     var descripcion = document.createElement("h1");
     descripcion.classList.add("descripcion");
     descripcion.textContent = preguntasFrecuentesData[pregunta].descripcion;
+
     CajaOpcion.style.backgroundImage = "url('" + preguntasFrecuentesData[pregunta].fondo + "')";
 
     var divDatos = document.createElement("div");
     divDatos.classList.add("divDatos");
     divDatos.appendChild(nombre);
     divDatos.appendChild(descripcion);
+
     CajaOpcion.appendChild(divDatos);
+
     preguntasOpciones.appendChild(CajaOpcion);
   }
-}    
+}
+   
 
