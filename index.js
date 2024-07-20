@@ -183,9 +183,9 @@ app.get('/dashboard', authorizeRoles('user', 'admin'), (req, res) => {
 //BOT MINECRAFT
 
 const bot = mineflayer.createBot({
-    host: 'PedroMonrealGamer.aternos.me',  
+    host: 'PedroMonrealGamer.aternos.me',
     port: 43226,                     
-    username: 'Goldencraft',   
+    username: 'Goldencraft',
     version: '1.20.4'             
   });
 

@@ -31,9 +31,16 @@ body {
     height: 60px;
 }
 
+
 .navbar i {
     font-size: 30px;
     margin: 0 10px;
+    transition: 0.2s all;
+}
+
+.navbar i:hover {
+color: #ffffff;
+scale: 1.05;
 }
 
 #PlayersOnline{
@@ -83,6 +90,7 @@ footer h1{
   ::-webkit-scrollbar-thumb:hover {
     background: #ffaa00;
   }
+
 
 
   @media screen and (max-width: 900px) {
