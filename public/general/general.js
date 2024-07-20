@@ -1,3 +1,41 @@
+function checkAuthentication() {
+    fetch('/api/check-auth', {
+        method: 'GET',
+        credentials: 'include' // Asegura que se envíen las cookies con la solicitud
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.authenticated) {
+            console.log('Usuario autenticado:', data.user);
+            var derecha = document.getElementById("derecha")
+            var registro = document.getElementById("registro");
+            registro.classList.add("fa-gear");
+            var logout = document.createElement("i");
+            logout.classList.add("fa-arrow-right-from-bracket");
+            logout.classList.add("fa-solid");
+
+            derecha.appendChild(logout)
+            registro.addEventListener("click", function() {
+                window.location.href = '/dashboard';
+            });
+            logout.addEventListener("click", function() {
+                window.location.href = '/logout';
+            });
+
+        } else {
+            console.log('Usuario no autenticado');
+            var registro = document.getElementById("registro");
+            registro.classList.add("fa-user");
+            registro.addEventListener("click", function() {
+                window.location.href = '/login';
+            });
+        }
+    })
+    .catch(error => {
+        console.error('Error al verificar la autenticación:', error);
+    });
+}
+
 // Crear y añadir el enlace al CSS general
 var link = document.createElement('link');
 link.rel = 'stylesheet';
@@ -83,24 +121,19 @@ function crearNavbar() {
     contadorJugadores.classList.add("fa-solid");
     contadorJugadores.classList.add("fa-plug");
 
-    var derecha = document.createElement("div");
+    var derecha = document.createElement("div")
+    derecha.id = "derecha";
     derecha.classList.add("derecha");
-    
-    var Usuario = document.createElement("i");
-    Usuario.textContent = "Usuario";
-    
+
     var registro = document.createElement("i");
+    registro.id = "registro";
     registro.classList.add("fa-solid");
-    registro.classList.add("fa-user");
-    registro.addEventListener("click", function() {
-        window.location.href = '/login';
-    });  
-    
+    checkAuthentication();
     navbar.appendChild(izquierda);
     navbar.appendChild(contadorJugadores);
-    derecha.appendChild(Usuario);
-    derecha.appendChild(registro);
+   derecha.appendChild(registro);
     navbar.appendChild(derecha);
+
     if (width < 600) {
         contadorJugadores.style.display = "none";
         Usuario.style.display = "none";
@@ -109,10 +142,8 @@ function crearNavbar() {
     document.body.insertBefore(navbar, document.body.firstChild);
 }
 
-// Llamar a la función para crear la barra de navegación
 crearNavbar();
 
-// Añadir favicon
 var iconLink = document.createElement('link');
 iconLink.rel = 'icon';
 iconLink.type = 'image/x-icon';

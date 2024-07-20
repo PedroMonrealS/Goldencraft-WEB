@@ -100,8 +100,16 @@ app.get('/logout', (req, res) => {
         if (err) {
             return res.send('Error al cerrar sesión');
         }
-        res.send('Sesión cerrada');
+        res.redirect('/'); 
     });
+});
+//para verificar si el usuario está registrado
+app.get('/api/check-auth', (req, res) => {
+    if (req.session.user) {
+        res.json({ authenticated: true, user: req.session.user, role: req.session.role });
+    } else {
+        res.json({ authenticated: false });
+    }
 });
 
 // Rutas para servir archivos HTML estáticos
@@ -140,5 +148,5 @@ app.get('/backend', authorizeRoles('admin'), (req, res) => {
 
 // Ruta protegida para usuarios normales
 app.get('/dashboard', authorizeRoles('user', 'admin'), (req, res) => {
-    res.send('Bienvenido a tu panel de usuario');
+    res.sendFile(path.join(__dirname, 'public/front/AdmUser/dashboard/dashboard.html'));
 });

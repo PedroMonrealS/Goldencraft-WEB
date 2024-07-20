@@ -16,7 +16,7 @@ function authorizeRoles(...roles) {
                 res.status(500).send('Error interno del servidor');
             }
         } else {
-            res.status(401).send('No estás autenticado');
+            res.redirect('/login'); 
         }
     };
 }
