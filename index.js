@@ -17,10 +17,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(session({
-    secret: process.env.SESSION_SECRET || 'GoldencraftA@',
+    secret: 'GoldencraftA@',
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: process.env.NODE_ENV === 'production' } // Solo en producción debe ser true
+    cookie: { secure: false } // Solo en producción debe ser true
 }));
 
 // Conexión a la base de datos en MongoDB Atlas
