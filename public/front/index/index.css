@@ -223,6 +223,15 @@ main{
     overflow-wrap: break-word;
 }
 
+.fecha{
+    font-style: italic;
+    font-size: 20px;
+    text-align: right;
+    margin-right: 10px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
   .hoverEntra, .hoverIP {
     position: absolute;
     transition: opacity 0.4s ease;

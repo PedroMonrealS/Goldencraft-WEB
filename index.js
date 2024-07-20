@@ -99,7 +99,9 @@ app.post('/login', async (req, res) => {
 
         // Guardar información del usuario en la sesión
         req.session.user = correo;
-        req.session.role = user.role; // Asigna el rol a la sesión
+        req.session.role = user.role;
+        req.session.nombre = user.nombreMC;
+
 
         res.redirect('/'); 
     } catch (error) {
@@ -153,7 +155,7 @@ app.get("/register", (req, res) => {
     res.sendFile(path.join(__dirname, '/public/front/AdmUser/register/register.html'));
 });
 
-app.get("/nuevanoticia", authorizeRoles('admin'), (req, res) => {
+app.get("/insertnoticia", authorizeRoles('admin'), (req, res) => {
     res.sendFile(path.join(__dirname, 'public/back/insertNoticia/insertNoticia.html'));
 });
 
@@ -177,7 +179,13 @@ app.get('/dashboard', authorizeRoles('user', 'admin'), (req, res) => {
 
 
 
-
+app.get('/api/usuario', (req, res) => {
+    if (req.session.nombre) {
+      res.json({ nombre: req.session.nombre });
+    } else {
+      res.status(401).json({ error: 'No estás autenticado' });
+    }
+  });
 
 
 //BOT MINECRAFT

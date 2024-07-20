@@ -5,6 +5,14 @@ let preguntasFrecuentesData = [];
 
 let noticiaActual = 0;
 
+function formatearFecha(isoFecha) {
+  const fecha = new Date(isoFecha);
+  const dia = String(fecha.getUTCDate()).padStart(2, '0');
+  const mes = String(fecha.getUTCMonth() + 1).padStart(2, '0'); // Los meses en JavaScript son de 0 a 11
+  const año = fecha.getUTCFullYear();
+  return `${dia}/${mes}/${año}`;
+}
+
 fetch('/api/noticias')
   .then(response => {
     if (!response.ok) {
@@ -13,7 +21,6 @@ fetch('/api/noticias')
     return response.json();
   })
   .then(data => {
-    console.log(data); 
     datos = data;
     noticiaInicial();
   })
@@ -30,7 +37,6 @@ fetch('/api/noticias')
     return response.json();
   })
   .then(data => {
-    console.log(data); 
     preguntasFrecuentesData = data;
     preguntasFrecuentes();
   })
@@ -74,6 +80,12 @@ function mostrarNoticias(num) {
     autor.textContent = datos[num].Autor;
     autor.classList.add("autorNoticia");
 
+
+    var fecha = document.createElement("h1");
+    fecha.textContent = formatearFecha(datos[num].fecha);
+    fecha.classList.add("fecha");
+
+
     var titular = document.createElement("h1");
     titular.textContent = datos[num].Titular;
     titular.classList.add("titular");
@@ -92,6 +104,8 @@ function mostrarNoticias(num) {
     datosNoticia.appendChild(titular);
     datosNoticia.appendChild(contenido);
     datosNoticia.appendChild(autor);
+    datosNoticia.appendChild(fecha);
+
     NoticiasContenido.appendChild(datosNoticia);
     NoticiasContenido.appendChild(fotoNoticiasDIV);
 
@@ -108,23 +122,12 @@ function noticiaInicial() {
 function siguienteNoticia() {
   if (noticiaActual < datos.length - 1) {
     mostrarNoticias(noticiaActual + 1);
-  } else {
-    console.log("No hay más noticias.");
-  }
-  if (noticiaActual === datos.length - 1) {
-    
-    console.log("Estás en la última noticia.");
   }
 }
 
 function noticiaAnterior() {
   if (noticiaActual > 0) {
     mostrarNoticias(noticiaActual - 1);
-  } else {
-    console.log("Ya estás en la primera noticia.");
-  }
-  if (noticiaActual === 0) {
-    console.log("Estás en la primera noticia.");
   }
 }
 

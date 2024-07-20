@@ -6,12 +6,10 @@ function checkAuthentication() {
     })
     .then(response => response.json())
     .then(data => {
-        console.log(data)
         const derecha = document.getElementById("derecha");
         const registro = document.getElementById("registro");
 
         if (data.authenticated) {
-            console.log('Usuario autenticado:', data.user);
             registro.classList.add("fa-gear");
             var cajaderecha = document.createElement("div");
             derecha.appendChild(cajaderecha);
@@ -39,7 +37,6 @@ function checkAuthentication() {
                 cajaderecha.appendChild(adminOption);
             }
         } else {
-            console.log('Usuario no autenticado');
             registro.classList.add("fa-user");
             registro.addEventListener("click", () => {
                 window.location.href = '/login';
@@ -102,7 +99,7 @@ function loadExternalResources() {
 // Función para obtener el número de jugadores conectados
 function numeroJugadores() {
     if (typeof MinecraftAPI !== 'undefined') {
-        MinecraftAPI.getServerStatus('goldencraftbeta.aternos.me', {
+        MinecraftAPI.getServerStatus('Goldencraftbeta.aternos.me', {
             port: 25565
         }, (err, status) => {
             if (err) {
