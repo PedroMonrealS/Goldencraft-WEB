@@ -86,13 +86,17 @@ app.post('/login', async (req, res) => {
             return res.sendFile(path.join(__dirname, '/public/front/AdmUser/KO/loginKO.html')); 
         }
 
-        req.session.user = correo; // Guardar información del usuario en la sesión
+        // Guardar información del usuario en la sesión
+        req.session.user = correo;
+        req.session.role = user.role; // Asigna el rol a la sesión
+
         res.redirect('/'); 
     } catch (error) {
         console.error('Error en el inicio de sesión:', error);
         res.status(500).send('Error interno del servidor');
     }
 });
+
 
 // Ruta de logout
 app.get('/logout', (req, res) => {
@@ -105,8 +109,13 @@ app.get('/logout', (req, res) => {
 });
 //para verificar si el usuario está registrado
 app.get('/api/check-auth', (req, res) => {
+    console.log('Sesión actual:', req.session); // Añade esta línea para depurar
     if (req.session.user) {
-        res.json({ authenticated: true, user: req.session.user, role: req.session.role });
+        res.json({
+            authenticated: true,
+            user: req.session.user,
+            role: req.session.role 
+        });
     } else {
         res.json({ authenticated: false });
     }
