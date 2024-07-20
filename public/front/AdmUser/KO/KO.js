@@ -25,5 +25,5 @@ document.head.appendChild(iconLink);
 window.onload = function() {
     setTimeout(function() {
         window.location.href = "/";
-    }, 2000); 
+    }, 3000); 
 };

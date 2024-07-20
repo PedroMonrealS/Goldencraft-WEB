@@ -62,6 +62,8 @@ form input:hover{
     border-radius: 5px;
     border-width: 1px;
     transition: all 0.5s;
+    cursor: pointer;
+
 
 }
 
@@ -100,4 +102,9 @@ form select{
 
 .option{
     color:black;
+}
+
+button{
+    cursor: pointer;
+
 }
