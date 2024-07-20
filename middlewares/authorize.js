@@ -10,10 +10,10 @@ function authorizeRoles(...roles) {
                 if (user && roles.includes(user.role)) {
                     next(); // Usuario tiene el rol adecuado
                 } else {
-                    res.status(403).send('Acceso denegado'); // Usuario no tiene permiso
+                    res.redirect('/accesodenegado'); 
                 }
             } catch (err) {
-                res.status(500).send('Error interno del servidor');
+                res.redirect('/accesodenegado'); 
             }
         } else {
             res.redirect('/login'); 

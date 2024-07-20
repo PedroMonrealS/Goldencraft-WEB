@@ -130,6 +130,10 @@ app.get("/443", (req, res) => {
     res.sendFile(path.join(__dirname, 'public/error/443/443.html'));
 });
 
+app.get("/accesodenegado", (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/error/accesodenegado/accesodenegado.html'));
+});
+
 app.get("/login", (req, res) => {
     res.sendFile(path.join(__dirname, '/public/front/AdmUser/login/login.html'));
 });
@@ -152,7 +156,7 @@ app.get("/nuevapreguntafrecuente", (req, res) => {
 //Protegido
 // Ruta protegida para administradores
 app.get('/backend', authorizeRoles('admin'), (req, res) => {
-    res.send('Bienvenido, administrador');
+    res.sendFile(path.join(__dirname, 'public/back/backend/backend.html'));
 });
 
 // Ruta protegida para usuarios normales
