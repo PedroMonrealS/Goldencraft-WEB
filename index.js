@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const path = require('path');
 const User = require('./modelos/user');
 const bcrypt = require('bcrypt');
+require('dotenv').config();
+
 
 const app = express();
 const port = 80;
@@ -15,7 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Conexión a la base de datos en MongoDB Atlas
-const mongoURL = 'mongodb+srv://goldencraftWEB:GoldencraftAdmins%40@goldencraft.uoswo3m.mongodb.net/mydatabase';
+const mongoURL = process.env.MONGO_URL;
 
 // Importar las rutas para las noticias y preguntas frecuentes
 const rutasNoticias = require('./rutas/noticias.js');
