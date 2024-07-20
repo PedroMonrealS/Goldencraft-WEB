@@ -1,4 +1,4 @@
-// Función para verificar la autenticación
+
 function checkAuthentication() {
     fetch('/api/check-auth', {
         method: 'GET',
@@ -30,7 +30,6 @@ function checkAuthentication() {
 
             // Lógica para mostrar opción adicional si es admin
             if (data.role === 'admin') {
-                console.log("ADMIN")
                 const adminOption = document.createElement('i');
                 adminOption.classList.add("fa-solid");
                 adminOption.classList.add("fa-screwdriver-wrench");
@@ -165,3 +164,5 @@ function crearNavbar() {
 // Cargar recursos externos y crear la barra de navegación
 loadExternalResources();
 crearNavbar();
+
+

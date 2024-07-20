@@ -4,24 +4,18 @@ const path = require('path');
 const User = require('./modelos/user');
 const bcrypt = require('bcrypt');
 const session = require('express-session');
+const MongoStore = require('connect-mongo');
 const authorizeRoles = require('./middlewares/authorize');
 
 require('dotenv').config();
 
 const app = express();
-const port = 80;
+const port = process.env.PORT || 80;
 
 // Middleware para procesar solicitudes JSON
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
-
-app.use(session({
-    secret: 'GoldencraftA@',
-    resave: false,
-    saveUninitialized: true,
-    cookie: { secure: false } // Solo en producción debe ser true
-}));
 
 // Conexión a la base de datos en MongoDB Atlas
 const mongoURL = process.env.MONGO_URL;
@@ -33,8 +27,7 @@ const rutasPreguntasFrecuentes = require('./rutas/preguntasFrecuentes.js');
 app.use('/api', rutasNoticias);
 app.use('/api', rutasPreguntasFrecuentes);
 
-// Conexión a MongoDB y inicio del servidor
-mongoose.connect(mongoURL, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(mongoURL)
     .then(() => {
         console.log('Conectado a MongoDB');
         app.listen(port, () => {
@@ -45,11 +38,28 @@ mongoose.connect(mongoURL, { useNewUrlParser: true, useUnifiedTopology: true })
         console.error('Error de conexión a MongoDB:', error);
     });
 
+// Configuración de sesión con MongoDB
+app.use(session({
+    secret: 'GoldencraftA@',
+    resave: false,
+    saveUninitialized: true,
+    store: MongoStore.create({ mongoUrl: mongoURL }),
+    cookie: {
+        secure: process.env.NODE_ENV === 'production', // Solo true en producción con HTTPS
+        maxAge: 3600000 // 1 hora en milisegundos
+    },
+    name: 'MyCoolWebAppCookieName',
+}));
+
+// Confianza en el proxy si está en producción
+if (process.env.NODE_ENV === 'production') {
+    app.set('trust proxy', 1); // Confiar en el primer proxy
+}
+
 // Registro de usuario
 app.post('/register', async (req, res) => {
     const { nombre, apellidos, correo, nombreMC, pais, password } = req.body;
     try {
-        // Verificar si el usuario ya existe
         const existingUser = await User.findOne({ correo });
         if (existingUser) {
             return res.sendFile(path.join(__dirname, '/public/front/AdmUser/KO/registerKO.html'));
@@ -77,7 +87,7 @@ app.post('/login', async (req, res) => {
     const { correo, password } = req.body;
     
     if (!correo || !password) {
-        return res.status(400).send('Correo o contraseña no proporcionados');
+        return res.sendFile(path.join(__dirname, '/public/front/AdmUser/KO/loginKO.html')); 
     }
     
     try {
@@ -97,7 +107,6 @@ app.post('/login', async (req, res) => {
     }
 });
 
-
 // Ruta de logout
 app.get('/logout', (req, res) => {
     req.session.destroy((err) => {
@@ -107,7 +116,8 @@ app.get('/logout', (req, res) => {
         res.redirect('/'); 
     });
 });
-//para verificar si el usuario está registrado
+
+// Verificar si el usuario está registrado
 app.get('/api/check-auth', (req, res) => {
     console.log('Sesión actual:', req.session); // Añade esta línea para depurar
     if (req.session.user) {
@@ -142,24 +152,19 @@ app.get("/register", (req, res) => {
     res.sendFile(path.join(__dirname, '/public/front/AdmUser/register/register.html'));
 });
 
-app.get("/nuevanoticia", (req, res) => {
+app.get("/nuevanoticia", authorizeRoles('admin'), (req, res) => {
     res.sendFile(path.join(__dirname, 'public/back/insertNoticia/insertNoticia.html'));
 });
 
-app.get("/nuevapreguntafrecuente", (req, res) => {
+app.get("/nuevapreguntafrecuente", authorizeRoles('admin'), (req, res) => {
     res.sendFile(path.join(__dirname, 'public/back/insertPreguntaFrecuente/insertPreguntaFrecuente.html'));
 });
 
-
-
-
-//Protegido
-// Ruta protegida para administradores
+// Rutas protegidas
 app.get('/backend', authorizeRoles('admin'), (req, res) => {
     res.sendFile(path.join(__dirname, 'public/back/backend/backend.html'));
 });
 
-// Ruta protegida para usuarios normales
 app.get('/dashboard', authorizeRoles('user', 'admin'), (req, res) => {
     res.sendFile(path.join(__dirname, 'public/front/AdmUser/dashboard/dashboard.html'));
 });
