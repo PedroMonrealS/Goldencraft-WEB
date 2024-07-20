@@ -3,8 +3,10 @@ const mongoose = require('mongoose');
 const path = require('path');
 const User = require('./modelos/user');
 const bcrypt = require('bcrypt');
-require('dotenv').config();
+const session = require('express-session');
+const authorizeRoles = require('./middlewares/authorize');
 
+require('dotenv').config();
 
 const app = express();
 const port = 80;
@@ -12,9 +14,14 @@ const port = 80;
 // Middleware para procesar solicitudes JSON
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-// Middleware para servir archivos estáticos desde el directorio 'public'
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(session({
+    secret: process.env.SESSION_SECRET || 'GoldencraftA@',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: process.env.NODE_ENV === 'production' } // Solo en producción debe ser true
+}));
 
 // Conexión a la base de datos en MongoDB Atlas
 const mongoURL = process.env.MONGO_URL;
@@ -27,7 +34,7 @@ app.use('/api', rutasNoticias);
 app.use('/api', rutasPreguntasFrecuentes);
 
 // Conexión a MongoDB y inicio del servidor
-mongoose.connect(mongoURL)
+mongoose.connect(mongoURL, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
         console.log('Conectado a MongoDB');
         app.listen(port, () => {
@@ -69,21 +76,17 @@ app.post('/register', async (req, res) => {
 app.post('/login', async (req, res) => {
     const { correo, password } = req.body;
     
-    // Verificar los datos que llegan
-    
     if (!correo || !password) {
         return res.status(400).send('Correo o contraseña no proporcionados');
     }
     
     try {
-        // Buscar el usuario por su correo electrónico
         const user = await User.findOne({ correo });
-        
-        // Verificar si el usuario existe y la contraseña es correcta
         if (!user || !(await bcrypt.compare(password, user.password))) {
             return res.sendFile(path.join(__dirname, '/public/front/AdmUser/KO/loginKO.html')); 
         }
 
+        req.session.user = correo; // Guardar información del usuario en la sesión
         res.redirect('/'); 
     } catch (error) {
         console.error('Error en el inicio de sesión:', error);
@@ -91,7 +94,15 @@ app.post('/login', async (req, res) => {
     }
 });
 
-
+// Ruta de logout
+app.get('/logout', (req, res) => {
+    req.session.destroy((err) => {
+        if (err) {
+            return res.send('Error al cerrar sesión');
+        }
+        res.send('Sesión cerrada');
+    });
+});
 
 // Rutas para servir archivos HTML estáticos
 app.get("/", (req, res) => {
@@ -116,4 +127,18 @@ app.get("/nuevanoticia", (req, res) => {
 
 app.get("/nuevapreguntafrecuente", (req, res) => {
     res.sendFile(path.join(__dirname, 'public/back/insertPreguntaFrecuente/insertPreguntaFrecuente.html'));
+});
+
+
+
+
+//Protegido
+// Ruta protegida para administradores
+app.get('/backend', authorizeRoles('admin'), (req, res) => {
+    res.send('Bienvenido, administrador');
+});
+
+// Ruta protegida para usuarios normales
+app.get('/dashboard', authorizeRoles('user', 'admin'), (req, res) => {
+    res.send('Bienvenido a tu panel de usuario');
 });

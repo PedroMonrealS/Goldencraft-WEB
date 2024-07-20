@@ -7,7 +7,8 @@ const userSchema = new Schema({
     correo: { type: String, required: true },
     nombreMC: { type: String, required: true },
     pais: { type: String, required: true },
-    password: { type: String, required: true }
+    password: { type: String, required: true },
+    role: { type: String, default: 'user' }
 
 });
 
