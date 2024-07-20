@@ -6,6 +6,7 @@ const bcrypt = require('bcrypt');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const authorizeRoles = require('./middlewares/authorize');
+const mineflayer = require('mineflayer');
 
 require('dotenv').config();
 
@@ -165,6 +166,52 @@ app.get('/backend', authorizeRoles('admin'), (req, res) => {
     res.sendFile(path.join(__dirname, 'public/back/backend/backend.html'));
 });
 
+// Rutas protegidas
+app.get('/gestorMinecraft', authorizeRoles('admin'), (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/back/gestorMinecraft/gestorMinecraft.html'));
+});
+
 app.get('/dashboard', authorizeRoles('user', 'admin'), (req, res) => {
     res.sendFile(path.join(__dirname, 'public/front/AdmUser/dashboard/dashboard.html'));
 });
+
+
+
+
+
+
+//BOT MINECRAFT
+
+const bot = mineflayer.createBot({
+    host: 'PedroMonrealGamer.aternos.me',  
+    port: 43226,                     
+    username: 'Goldencraft',   
+    version: '1.20.4'             
+  });
+
+  bot.on('spawn', () => {
+    console.log('Bot conectado al servidor de Minecraft');
+    });
+
+    bot.on('chat', (username, message) => {
+        console.log(`[Chat] ${username}: ${message}`);
+    });
+
+    bot.on('error', (err) => {
+    console.error('Error al conectar o enviar el mensaje:', err);
+  });
+  
+    bot.on('end', () => {
+    console.log('Bot desconectado del servidor');
+  });
+
+     app.post('/mcBOTmessage', authorizeRoles('admin'), (req, res) => {
+    const message = req.query.message;
+  
+    bot.chat(message);
+  
+    res.send('<script>alert("Mensaje enviado correctamente"); window.location.href = "/gestorMinecraft";</script>');
+
+  });
+
+  
