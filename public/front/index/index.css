@@ -20,6 +20,8 @@ main{
     overflow: hidden;
     transition: all 0.5s;
     position: relative;
+    width: 100px;
+
 }
 
 .menuLateral a{
