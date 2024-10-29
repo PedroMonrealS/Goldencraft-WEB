@@ -8,7 +8,27 @@ GRIS OSCURO: 1a161b
   
 main{
     display: flex;
-    margin: 30px;
+}
+
+.cajaMenu{
+    text-align: center;
+    height: 200px;
+
+}
+.menuLateral{
+    height: 0px;
+    overflow: hidden;
+    transition: all 0.5s;
+    position: relative;
+}
+
+.menuLateral a{
+    font-size: 20px;
+}
+
+.botonMenu{
+ font-size: 20px;
+ padding: 10px;
 }
 
 .cajaMain{
@@ -16,6 +36,8 @@ main{
     justify-content: center; 
     align-items: center; 
     gap: 10px;
+    margin: 30px;
+
 
 }
 .textoMain{

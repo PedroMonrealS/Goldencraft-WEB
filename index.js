@@ -190,7 +190,7 @@ app.get('/api/usuario', (req, res) => {
 
 //BOT MINECRAFT
 
-const bot = mineflayer.createBot({
+/* const bot = mineflayer.createBot({
     host: 'PedroMonrealGamer.aternos.me',
     port: 43226,                     
     username: 'Goldencraft',
@@ -222,4 +222,4 @@ const bot = mineflayer.createBot({
 
   });
 
-  
+   */

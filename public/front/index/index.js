@@ -196,3 +196,23 @@ function preguntasFrecuentes() {
 }
    
 
+
+
+
+
+function mostrarMenuLateral(){
+  var menulateral = document.getElementById("menuLateral");
+
+  if(menulateral.style.height === "200px"){
+    console.log("YA");
+    menulateral.style.height = "0px";
+
+
+  }
+  else
+  {
+    menulateral.style.height = "200px";
+
+
+  }
+}
