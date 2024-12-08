@@ -41,6 +41,10 @@ main{
     padding: 20px;
 }
 
+.menuLateral li{
+    margin-bottom: 10px;
+}
+
 .botonMenu{
  font-size: 20px;
  padding: 10px;
