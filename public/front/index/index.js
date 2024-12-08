@@ -202,12 +202,16 @@ function preguntasFrecuentes() {
 
 function mostrarMenuLateral(){
   var menulateral = document.getElementById("menuLateral");
+  var boton = document.getElementById("botonMenuV1");
 
-  if(menulateral.style.width === "380px"){
+  if(menulateral.style.width === "130px"){
     menulateral.style.width = "0px";
+    boton.style.opacity ="100%";
   }
   else
   {
-    menulateral.style.width = "380px";
+    menulateral.style.width = "130px";
+    boton.style.opacity ="0%";
+
   }
 }
