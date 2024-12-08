@@ -203,16 +203,11 @@ function preguntasFrecuentes() {
 function mostrarMenuLateral(){
   var menulateral = document.getElementById("menuLateral");
 
-  if(menulateral.style.height === "200px"){
-    console.log("YA");
-    menulateral.style.height = "0px";
-
-
+  if(menulateral.style.width === "380px"){
+    menulateral.style.width = "0px";
   }
   else
   {
-    menulateral.style.height = "200px";
-
-
+    menulateral.style.width = "380px";
   }
 }
